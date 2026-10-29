@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TEMAN MONSTER</title>
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{height:100%;overflow:hidden;background:#050506;color:#fff;font-family:"Inter",-apple-system,"SF Pro Text",Helvetica,Arial,sans-serif}
+#phone{position:absolute;left:50%;top:50%;width:393px;height:852px;border-radius:55px;background:#000;overflow:hidden;box-shadow:0 0 0 10px #1c1c21,0 0 0 12px #3a3a40,0 30px 80px #000;transition:filter .08s}
+#phone.mob{left:0;top:0;width:100%;height:100vh;height:100dvh;border-radius:0;box-shadow:none}
+#phone.fl{filter:brightness(.3) contrast(1.5)}
+.scr{position:absolute;inset:0}.wp{background:#0b0b0f center/cover}
+#sb{position:absolute;top:0;left:0;right:0;height:54px;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:8px 30px 0 44px;font-weight:600;font-size:16px;pointer-events:none}
+#phone.mob #sb{height:calc(env(safe-area-inset-top) + 40px);padding:calc(env(safe-area-inset-top) + 6px) 22px 0}
+#sb .r{display:flex;gap:6px;align-items:center;font-size:14px}
+#bat{width:27px;height:13px;border-radius:4.5px;background:rgba(255,255,255,.3);overflow:hidden;position:relative}#bat i{position:absolute;inset:0 auto 0 0;width:14%;background:#ff3b30}
+#di{position:absolute;top:11px;left:50%;margin-left:-60px;width:120px;height:35px;border-radius:20px;background:#000;z-index:101}#phone.mob #di{display:none}
+#hz{position:absolute;bottom:0;left:0;right:0;height:30px;z-index:110;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;cursor:pointer}#hi{width:134px;height:5px;border-radius:3px;background:#fff}
+#vig{position:absolute;inset:0;z-index:90;pointer-events:none;opacity:0;transition:opacity 2s;box-shadow:inset 0 0 120px 40px #8a0010;background:radial-gradient(transparent 55%,rgba(60,0,8,.55))}
+/* lock */
+#lock{z-index:40;transition:transform .55s cubic-bezier(.5,0,.2,1),opacity .5s}#lock.up{transform:translateY(-105%);opacity:0;pointer-events:none}
+#ld{position:absolute;top:84px;width:100%;text-align:center;font-size:20px;font-weight:600;opacity:.9}
+#lc{position:absolute;top:108px;width:100%;text-align:center;font-size:92px;font-weight:600;letter-spacing:-3px}
+#ln{position:absolute;top:290px;left:12px;right:12px;display:flex;flex-direction:column;gap:8px}
+.nt,#ban{background:rgba(40,40,44,.86);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:11px 13px;display:flex;gap:10px;cursor:pointer;animation:pop .45s cubic-bezier(.2,1.3,.4,1)}
+.nt b,#ban b{display:block;font-size:15px}.nt span,#ban span{font-size:14px;line-height:1.25}.tt{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#lt{position:absolute;bottom:70px;width:100%;text-align:center;font-size:15px;opacity:.8;animation:bl 2s infinite}
+@keyframes bl{50%{opacity:.3}}@keyframes pop{from{transform:scale(.85);opacity:0}}
+#pass{z-index:45;background:rgba(5,5,8,.8);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);display:none;flex-direction:column;align-items:center;padding-top:100px}
+#pass.on,#end.on{display:flex}
+.pt{font-size:21px;font-weight:600}#dots{display:flex;gap:18px;margin:26px 0 8px}#dots i{width:13px;height:13px;border-radius:50%;border:1.5px solid #fff}#dots i.f{background:#fff}#dots.sh{animation:sk .4s}
+@keyframes sk{20%,60%{transform:translateX(-14px)}40%,80%{transform:translateX(14px)}}
+#hint{font-size:13px;opacity:.7;margin-bottom:22px;text-align:center;padding:0 30px;white-space:pre-line}
+#pad{display:grid;grid-template-columns:repeat(3,78px);gap:16px 22px}
+.pk{width:78px;height:78px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform .15s}.pk:active{background:rgba(255,255,255,.4);transform:scale(.92)}.pk.z{background:none}
+.pk small{font-size:10px;letter-spacing:2px;height:11px;margin-top:2px}#cancel{position:absolute;bottom:60px;right:50px;font-size:17px;cursor:pointer}
+/* app */
+#app{position:absolute;inset:0;z-index:20;background:#111;display:flex;flex-direction:column;padding-top:54px}
+#phone.mob #app{padding-top:calc(env(safe-area-inset-top) + 40px)}
+.hd{padding:8px 20px;font-size:32px;font-weight:700}.ls{flex:1;overflow:auto}
+.row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #222;cursor:pointer}
+.rt{flex:1;min-width:0}.rn{font-weight:600;font-size:16px}.rp{color:#8e8e93;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:11px;height:11px;border-radius:50%;background:#e5242f;flex:none}
+.av{border-radius:50%;overflow:hidden;background:#8e8e93 center/cover;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}.av svg{width:100%;height:100%}
+.ch{display:flex;align-items:center;gap:10px;padding:6px 12px;background:#1d1d1f;border-bottom:1px solid #000}
+.back{color:#fff;font-size:34px;line-height:1;cursor:pointer;padding:0 6px}.cn{font-weight:700;font-size:17px}.cm{font-size:12px;color:#8e8e93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+.msgs{flex:1;overflow:auto;padding:10px 10px 8px;display:flex;flex-direction:column;gap:4px;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),conic-gradient(#7a1020 25%,#cdbb97 0 50%,#7a1020 0 75%,#cdbb97 0) 0 0/90px 90px}
+.rw{display:flex;gap:6px;align-items:flex-end}.mr{justify-content:flex-end}
+.mw{max-width:78%;padding:8px 12px 6px;border-radius:18px;font-size:16px;line-height:1.3;animation:bpop .3s cubic-bezier(.2,1.4,.4,1);word-wrap:break-word;white-space:pre-wrap}
+.ot{background:#1e1e20;border-bottom-left-radius:5px}.me{background:#0e2f10;border-bottom-right-radius:5px}.me.th{background:#d83a2e}
+.sn{font-size:13px;font-weight:700;margin-bottom:2px}.tm{font-size:11px;color:#8e8e93;font-style:normal;margin-left:10px;float:right;margin-top:6px}.th .tm{color:#fbb}
+.qt{border-left:3px solid #b57cf0;background:rgba(255,255,255,.07);padding:5px 8px;border-radius:6px;font-size:13px;color:#aaa;margin-bottom:4px}.qt b{display:block;color:#c9a0f5}
+.im{width:210px;height:300px;border-radius:12px;background:#2a2a2e center/cover;margin-bottom:5px}
+.sys{align-self:center;font-size:13px;color:#ddd;background:rgba(20,20,22,.85);padding:7px 14px;border-radius:10px;margin:8px 0;text-align:center;max-width:85%}
+.tp{background:#1e1e20;border-radius:18px;padding:12px 14px;display:flex;gap:4px;align-self:flex-start}.tp i{width:8px;height:8px;border-radius:50%;background:#8e8e93;animation:tb 1s infinite}.tp i:nth-child(2){animation-delay:.15s}.tp i:nth-child(3){animation-delay:.3s}
+@keyframes tb{30%{transform:translateY(-4px);opacity:.4}}@keyframes bpop{from{opacity:0;transform:scale(.6) translateY(12px)}}
+.gl .tx{display:inline-block;animation:gl 1.8s infinite steps(1)}@keyframes gl{0%,88%{transform:none;text-shadow:none}90%{transform:translateX(-2px);text-shadow:2px 0 #f00,-2px 0 #0ff}94%{transform:translateX(2px);text-shadow:-2px 0 #f00,2px 0 #0ff}97%{transform:none}}
+.inp{display:flex;gap:8px;padding:6px 10px;align-items:center;background:#1d1d1f}.ib{flex:1;border:1px solid #333;border-radius:18px;min-height:36px;padding:7px 12px;font-size:16px;display:flex;align-items:center;overflow:hidden;white-space:pre;color:#eee}
+#ti:empty:before{content:"Ketik pesan";color:#666}.cur{width:2px;height:18px;background:#e5242f;animation:bl 1s infinite}
+.sdb{width:34px;height:34px;border-radius:50%;background:#1f7a2e;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.kb{background:#1c1c1e;padding:8px 3px 30px;display:flex;flex-direction:column;gap:10px;height:230px}.kr{display:flex;gap:5px;padding:0 3px}
+.k{flex:1;height:42px;background:#3a3a3c;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:21px;color:#fff;cursor:pointer}.k.on{background:#6a6a6e}.k.sp{flex:6;font-size:15px}.k.go{flex:2;background:#1f7a2e;font-size:15px}
+#ban{position:absolute;top:-140px;left:10px;right:10px;z-index:55;transition:top .45s cubic-bezier(.2,1.2,.4,1)}#ban.on{top:54px}
+#end{z-index:95;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:30px}
+#end h1{letter-spacing:5px;font-size:28px;color:#e5242f}.btn{padding:12px 28px;border-radius:22px;background:#e5242f;color:#fff;cursor:pointer;font-size:16px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style></head><body>
+<div id="phone">
+<div class="scr" id="app"></div>
+<div class="scr" id="lock"><div class="wp scr"></div><div id="ld">Hari ini</div><div id="lc">11:41</div><div id="ln"></div><div id="lt">Ketuk untuk membuka</div></div>
+<div class="scr" id="pass"><div class="pt">Masukkan Kode Sandi</div><div id="dots"></div><div id="hint"></div><div id="pad"></div><div id="cancel">Batal</div></div>
+<div id="ban"></div><div id="vig"></div>
+<div class="scr" id="end"><h1>TEMAN MONSTER</h1><div id="et"></div><div class="btn" id="rs">Mulai Ulang</div></div>
+<div id="di"></div><div id="sb"><b id="ck">11:41</b><span class="r"><b>5G</b><span id="bat"><i></i></span></span></div>
+<div id="hz"><div id="hi"></div></div>
+</div>
+<script>
+const IMG="image/"; /* folder gambar. Kalau file ini ada di au/ dan image/ ada di luar, ganti "../image/" */
+const SU="https://www.myinstants.com/media/sounds/";
+const CFG={
+ pass:"0000",
+ hint:"Petunjuk: jam yang disebut Sistem (00.00)\nAU INI DIBUAT OLEH J1NJUU · cerita asli Violancy",
+ sfxVol:.7,
+ sfx:{type:SU+"iphone-original-keyboard-sound.mp3",send:SU+"iphone-message-swoosh.mp3",recv:SU+"notification_o14egLP.mp3",notif:SU+"notification_o14egLP.mp3"},
+ rooms:{sis:{n:"Sistem"},mon:{n:"monyet kehilangan bh",g:1,s:"Cicii, nei, angkasa, Bim, Verio, Daren..."},gtw:{n:"Gtww",g:1,s:"nei, Verio, Daren, rhevana, Chersly"},ng:{n:"Nama grup"}},
+ rav:{sis:"sistem",mon:"monyet",gtw:"gtww",ng:"namagrup"},   /* foto avatar grup di image/ (opsional) */
+ av:{nei:"nei",ver:"verio",dar:"daren",rhe:"rhevana",che:"chersly"},  /* foto: image/nei.jpg dst */
+ init:{cic:["C","#0b3d0b"],ang:["A","#7d6b7d"],bim:["B","#8a3fd0"]}, /* monster = tanpa foto profil */
+ sp:{nei:["nei suka kentut 💜💜","#5fbf91"],ver:["Verio sok ganteng 🙄👍","#5aa9c4"],dar:["Daren","#c3a0f0"],rhe:["rhevana","#a8a24a"],che:["Chersly","#f0dc9a"],cic:["Cicii 👍👍","#9fe09f"],ang:["angkasa","#a58aa0"],bim:["Bim 👍","#b25cf0"]},
+ /* Format: "jeda>ruang|pembicara: teks". me = Livly (diketik otomatis). (q:teks) = balasan kutipan.
+    @t|jam  @sys|ruang|teks  @img|ruang|siapa|berkas|label  @fear|0-5  @end */
+ story:[
+ "@t|11:41","600>sis|sis: 3 ORANG TEMAN MU ADALAH MONSTER ‼️‼️","500>sis|sis: 3 ORANG TEMAN MU ADALAH MONSTER ‼️‼️","500>sis|sis: 3 ORANG TEMAN MU ADALAH MONSTER ‼️‼️","500>sis|sis: 3 ORANG TEMAN MU ADALAH MONSTER ‼️‼️",
+ "sis|me: Ha?? Maksudnya??","@t|11:42","sis|sis: Pesan tidak di terima ‼️","sis|me: Maksudnya 3 temen ku adalah monster??","sis|sis: ya","@fear|1",
+ "@t|11:43","sis|me: Cara bedain temen yang gk monster sama yg monster gmn pls???","sis|me: kasih ciri ciri ny lahh","sis|me: Jangan pelit","@t|11:47",
+ "2500>sis|sis: CIRI CIRI NYA:\n1.dia tidak menggunakan foto profil..\n2.dia selalu mengetik kata yang aneh..\n3.dia selalu mengajak kalian ke hutan saat jam 00.00\n4.dia selalu bilang bahwa darah itu en*k",
+ "sis|me: Ok thanks","sis|sis: (q:Ok thanks)👍",
+ "@t|11:51","mon|me: Gusy kalian dapat chat dari sistem gk??","mon|nei: Aku dapet","mon|ver: 2in","mon|dar: 3in","mon|rhe: 4in","mon|che: 5in","mon|cic: Aku kavsaj gk ahzg azjsva dapet sha ehzha","@fear|2",
+ "@t|11:53","mon|me: *Mencurigakan dehh",
+ "@t|16:27","3000>@sys|gtw|Anda menambahkan nei suka kentut 💜💜","@sys|gtw|Anda menambahkan Verio sok ganteng 👍🙄","@sys|gtw|Anda menambahkan Daren","@sys|gtw|Anda menambahkan rhevana","@sys|gtw|Anda menambahkan Chersly",
+ "gtw|ver: Grup apaan nih?","gtw|nei: Iya nihh tapi kok gk ada cici,angkasa, dan bim??","gtw|me: Mereka monster!!","gtw|rhe: Hah masa..","gtw|me: Iyaa!!",
+ "@t|16:31","gtw|che: Jangan asal tuduh dulu liv..","gtw|me: Aku gk bohong!!","gtw|me: Serius..!!","gtw|me: Emang kalian gk ada minta ciri ciri teman monster apa??","gtw|dar: Gk","gtw|me: Astagaa","gtw|me: Nih ciri-ciri teman monster",
+ "@t|16:33","gtw|me: ↪ Diteruskan\nCIRI CIRI NYA:\n1.dia tidak menggunakan foto profil..\n2.dia selalu mengetik kata yang aneh..\n3.dia selalu mengajak kalian ke hutan saat jam 00.00\n4.dia selalu bilang bahwa darah itu en*k",
+ "gtw|dar: eh.. Baru ngeh gua kalau cici, angkasa dan bim gk pake foto profil","gtw|ver: Sama jirt","@fear|2",
+ "@t|16:38","gtw|rhe: Eh cici ngechat di grup","gtw|dar: Dah yok pindah grup","gtw|che: 👍",
+ "@t|16:39","2500>mon|cic: Kalian wuzvajw kenapa wjzbanwhsb gk","mon|cic: Berisik wozvqn","@t|16:40","mon|cic: Padahal wjzbanwhsb kalian IshbNajsjzh online aizbana",
+ "mon|me: Em.. Kita lagi sibuk tadi koo","mon|me: Cuman kan ya kita lupa matiin hp, jadi ya kita emang kelihatan on","mon|me: Iya kan???","@t|16:42","mon|me: @nei suka kentut 💜💜","mon|me: @Verio sok ganteng 👍🙄","mon|me: @Daren","mon|me: @rhevana","mon|me: @Chersly",
+ "@t|16:43","mon|cic: Ohh alsins","mon|ang: Kalian... Nanti.... Malam... Mau.... Gk.... Ke..... Hutan... Jam... 00.00?","@fear|3",
+ "@t|16:44","mon|me: *Aduh bales apa ya biar kelihatan sibuk","@t|16:45","mon|me: Em.. Gk dulu kasa.. Aku lagi di tempat sepupu ku dan juga lagi ada acara jadi aku tidur di tempat sepupu ku dulu.","3000>mon|ang: Ooo.... Ok....","mon|ang: Yang... Lain... Mau... Gk...",
+ "@t|16:46","mon|nei: Eh.. Aku lagi sibuk ngerjain tugas mtk dan udah ngantuk banget","mon|ver: Gw.. Gw lgi latihan bahasa Kazakhstan.. Sorry gk bisa","mon|dar: Gua lagi sibuk masak soalnya ada tamu dan ada acara",
+ "@t|16:50","mon|rhe: Aku.. Em.. Aku beberapa hari yang lalu masuk les melukis jadinya aku ada tugas ngelukis pemandangan.. Terus tugas nya belum aku kerjain 2 hari.. Jadi nya aku kerjain skrg karena bsok dikumpul","mon|che: Em.. Aku lagi sibuk banget..",
+ "@t|16:51","3000>mon|ang: Oh... Ok... Kalian... Semua... Sibuk... Banget... Yah...","mon|ang: @Cici 👍👍","mon|ang: @Bim 👍","mon|ang: Ayo.... Kita.. Ke.. Hutan..",
+ "@t|16:52","mon|bim: Iya.. Aku suka bangett sama d@r@h.. Rasanya enak banget tauu ‼️‼️","mon|cic: Aku skzhaba ikut akzgbabs","@fear|4",
+ "gtw|me: Aku takut plsss","gtw|che: Sama ☹️☹️","@t|16:53","gtw|me: Eh bentar aku dichat sama sistem","gtw|me: Tunggu ya","gtw|ver: Iya",
+ "@t|16:54","2500>sis|sis: SURUH TEMAN TEMAN MU UNTUK MENGINAP DI RUMAH MU ‼️ KARENA MONSTER-MONSTER DISANA AKAN MENCARI KALIAN ‼️‼️","500>sis|sis: SURUH TEMAN TEMAN MU UNTUK MENGINAP DI RUMAH MU ‼️ KARENA MONSTER-MONSTER DISANA AKAN MENCARI KALIAN ‼️‼️",
+ "sis|me: Ha?.. Tapi kita sembunyi dimana???","@t|17:05","3000>sis|sis: BUKA LEMARI BAJU MU DAN GESER SEMUA PAKAIAN MU KAMU MENEMUKAN PINTU RAHASIA KE RUANG BAWAH TANAH ‼️‼️‼️","sis|me: KOK TAU??","sis|sis: gua kan sistem 🙄","sis|me: Yodah mksh","@fear|3",
+ "@t|17:09","2000>@sys|ng|Livly bangun dari tempat tidur lalu membuka lemari","@img|ng|me|lemari|",
+ "@t|17:10","ng|me: Hadeh.. Sayang banget harus pindahin dengan buru buru padahal baju nya rapi banget jirks... Mana gua lipat dari pagi sampe malam 🙄","@t|17:11","ng|me: Dah ah beberapa baju gua tarok di bawah kasur.. Dan sebagian nya lagi buat nutupin pintu ruang bawah tanah",
+ "@sys|ng|Livly membongkar semuanya","ng|me: Huh.. Capek","@t|17:15","@img|ng|me|pintu|","ng|me: Wow.. Mewah bgt yap..","ng|me: Duh.. Takut gua masuk kedalam","ng|me: Takut nya ada laba-laba & kecoa","ng|me: Ihh",
+ "@t|17:16","@sys|ng|Livly memasuki pintu ruang bawah tanah. Ia hanya perlu turun tangga","@sys|ng|Sesampainya di ruang bawah tanah","ng|me: WHAT WHATAN JIR","@img|ng|me|bawahtanah|",
+ "@t|17:17","ng|me: INI RUANG BAWAH TANAH TAU RUANG RAHASIA??","ng|me: mama ko gk pernah kasih tau yak??","ng|me: Udah ah gua suruh teman teman ke sini biar mereka selamat",
+ "@t|17:18","mon|me: Guiccc","mon|nei: Kenapa??","mon|me: ↪ Diteruskan\nSURUH TEMAN TEMAN MU UNTUK MENGINAP DI RUMAH MU ‼️ KARENA MONSTER-MONSTER DISANA AKAN MENCARI KALIAN ‼️‼️","@t|17:19","mon|me: Dari sistem btw","mon|me: Kalian semua ke rumah gua ya","mon|ver: Ok..","mon|rhe: Eh tunggu dulu.. Tapi kita sembunyi di mana??","@t|17:20","mon|me: Tenang ada ruang bawah tanah ko di rumah gua",
+ "mon|che: (q:Tenang ada ruang bawah tanah ko di rumah gua)Hah? Masa?? Kan selama kita ke rumah lo, lo gk pernah kasih tau","@t|17:21","mon|me: Di kasih tau sistem jir","mon|me: Selama 17 tahun ini gua gk tau pls..","mon|me: Dan juga knp yah mamah gua gk kasih tau??",
+ "@t|17:22","mon|dar: Udah lah chat nya.. Btw ada mau titip sesuatu gk??","@t|17:23","mon|me: Oiya.. Kalian semuaa bawa perlengkapan dan kebutuhan kita ya","mon|me: Gua mau nyapu dikit","mon|ver: Okk",
+ "@fear|5","3500>@sys|mon|srry salah grup gua","2500>@sys|mon|Cicii, angkasa, dan Bim telah membaca pesan ini","@end|BERSAMBUNG"]
+};
+/* ===== UTILITAS ===== */
+const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function loadImg(b){return new Promise(res=>{const ex=["jpg","png","jpeg","webp"];let i=0;(function t(){if(i>=ex.length)return res(null);const m=new Image();m.onload=()=>res(m.src);m.onerror=()=>{i++;t()};m.src=IMG+b+"."+ex[i]})()})}
+const SIL='<svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7" fill="#fff"/><path d="M6 40c0-9 6-14 14-14s14 5 14 14z" fill="#fff"/></svg>';
+const avh=(w,s)=>{const i=CFG.init[w];return i?`<div class="av" style="width:${s}px;height:${s}px;background:${i[1]};font-size:${s*.45}px">${i[0]}</div>`:`<div class="av" data-k="${CFG.av[w]||w}" style="width:${s}px;height:${s}px">${SIL}</div>`};
+const avr=(k,s)=>`<div class="av" data-k="${CFG.rav[k]}" style="width:${s}px;height:${s}px">${SIL}</div>`;
+function hyd(r){r.querySelectorAll(".av[data-k]").forEach(d=>loadImg(d.dataset.k).then(u=>{if(u){d.style.backgroundImage='url("'+u+'")';d.innerHTML=""}}))}
+/* ===== SUARA ===== */
+let AC;function ctx(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+function tn(f,d,ty,v,t0,f2){const c=ctx();if(!c)return;const o=c.createOscillator(),g=c.createGain(),t=c.currentTime+(t0||0);o.type=ty||"sine";o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v||.15,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.02)}
+const SYN={type:()=>tn(1800,.03,"square",.04),send:()=>{tn(700,.12,"sine",.15,0,1400)},recv:()=>{tn(1046,.18,"sine",.15);tn(1318,.3,"sine",.12,.1)},notif:()=>{tn(1568,.15,"triangle",.18);tn(1174,.25,"triangle",.15,.12)}};
+const SND={};
+function sfx(n){if(!S.snd)return;const u=CFG.sfx[n];if(u){try{const b=SND[n]||(SND[n]=new Audio(u)),a=b.cloneNode();a.volume=CFG.sfxVol;const r=a.play();if(r&&r.catch)r.catch(()=>SYN[n]&&SYN[n]())}catch(e){SYN[n]&&SYN[n]()}}else SYN[n]&&SYN[n]()}
+function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+/* ===== STATE ===== */
+const R={},S={locked:1,chat:null,buf:"",lockN:[],pend:null,snd:1,fear:0,clk:"11:41"};
+let RUN=0,TS=0,FT=[];
+function setClk(t){S.clk=t;$("#ck").textContent=t;$("#lc").textContent=t}
+function setFear(n){S.fear=n;$("#vig").style.opacity=Math.min(.8,n*.15);FT.forEach(clearInterval);FT=[];
+ if(n>=3)FT.push(setInterval(()=>{if(Math.random()<.4){const p=$("#phone");p.classList.add("fl");setTimeout(()=>p.classList.remove("fl"),90+Math.random()*180)}},2600));
+ if(n>=4)FT.push(setInterval(()=>{if(S.snd){tn(55,.2,"sine",.5);tn(48,.22,"sine",.45,.22)}},1100))}
+function fit(){const p=$("#phone"),m=innerWidth<=500;p.classList.toggle("mob",m);if(m){p.style.transform="";return}p.style.transform="translate(-50%,-50%) scale("+Math.min(innerWidth/413,innerHeight/872,1.3)+")"}
+addEventListener("resize",fit);fit();document.addEventListener("pointerdown",()=>ctx(),{once:true});
+paintWp();function paintWp(){loadImg("wallpaper").then(u=>{if(u)$("#lock .wp").style.backgroundImage='url("'+u+'")'})}
+/* ===== LOCK & PASSCODE ===== */
+function renderLock(){const n=$("#ln");n.innerHTML="";S.lockN.forEach(x=>{const d=el("div","nt",avr(x.room,40)+`<div class="tt"><b>${esc(x.t)}</b><span>${esc(x.x)}</span></div>`);d.dataset.r=x.room;n.appendChild(d)});hyd(n)}
+let pin="";
+const dots=()=>$("#dots").innerHTML=[0,1,2,3].map(i=>`<i class="${i<pin.length?"f":""}"></i>`).join("");
+function showPass(){pin="";dots();$("#pass").classList.add("on")}
+function pkey(n){sfx("type");pin+=n;dots();if(pin.length===4){if(pin===CFG.pass)setTimeout(unlock,180);else{vib([60,40,60]);const d=$("#dots");d.classList.add("sh");setTimeout(()=>{d.classList.remove("sh");pin="";dots()},420)}}}
+function unlock(){S.locked=0;$("#pass").classList.remove("on");$("#lock").classList.add("up");S.lockN=[];renderLock();msgList();if(S.pend){const r=S.pend;S.pend=null;setTimeout(()=>showChat(r),250)}}
+$("#hint").textContent=CFG.hint;
+{const L={2:"ABC",3:"DEF",4:"GHI",5:"JKL",6:"MNO",7:"PQRS",8:"TUV",9:"WXYZ"},p=$("#pad");[1,2,3,4,5,6,7,8,9,"",0].forEach(n=>{const k=el("div","pk"+(n===""?" z":""),n===""?"":`${n}<small>${L[n]||""}</small>`);if(n!=="")k.onclick=()=>pkey(n);p.appendChild(k)})}
+$("#cancel").onclick=()=>{$("#pass").classList.remove("on");S.pend=null};
+$("#lock").addEventListener("click",e=>{const n=e.target.closest(".nt");S.pend=n?n.dataset.r:null;showPass()});
+$("#hz").onclick=()=>{if(S.locked){if(!$("#pass").classList.contains("on"))showPass()}else if(S.chat)msgList()};
+/* ===== PESAN ===== */
+const prev=l=>!l?"":l.k==="i"?"Foto":l.x;
+function msgList(){S.chat=null;const b=$("#app");b.innerHTML='<div class="hd">Pesan</div><div class="ls"></div>';const ls=b.querySelector(".ls");
+ Object.keys(R).filter(k=>R[k].vis).sort((a,c)=>R[c].ts-R[a].ts).forEach(k=>{const r=R[k],l=r.m.filter(m=>m.k!=="s").pop(),row=el("div","row",avr(k,48)+`<div class="rt"><div class="rn">${esc(r.n)}</div><div class="rp">${esc(prev(l))}</div></div>${r.un?'<i class="dot"></i>':""}`);row.onclick=()=>showChat(k);ls.appendChild(row)});
+ if(!ls.children.length)ls.innerHTML='<div style="padding:16px 20px;color:#8e8e93">Belum ada percakapan.</div>';hyd(ls)}
+function bub(r,m,pv){if(m.k==="s")return el("div","sys",esc(m.x));const me=m.w==="me",row=el("div","rw "+(me?"mr":"or"));
+ if(!me&&r.g)row.innerHTML=avh(m.w,30);
+ const d=el("div","mw "+(me?"me":"ot")+(me&&m.x&&m.x[0]==="*"?" th":"")+(m.w==="cic"?" gl":""));let h="";
+ if(r.g&&!me&&CFG.sp[m.w]&&(!pv||pv.w!==m.w))h+=`<div class="sn" style="color:${CFG.sp[m.w][1]}">${esc(CFG.sp[m.w][0])}</div>`;
+ if(m.q)h+=`<div class="qt"><b>Anda</b>${esc(m.q)}</div>`;
+ h+=m.k==="i"?`<div class="im"></div>`+(m.l?esc(m.l):""):`<span class="tx">${esc(m.x)}</span>`;
+ h+=`<i class="tm">${m.t}${me?" ✓✓":""}</i>`;d.innerHTML=h;row.appendChild(d);
+ if(m.k==="i")loadImg(m.key).then(u=>{if(u)d.querySelector(".im").style.backgroundImage='url("'+u+'")'});hyd(row);return row}
+function showChat(k){S.chat=k;const r=R[k],b=$("#app");r.un=0;
+ b.innerHTML=`<div class="ch"><div class="back">‹</div>${avr(k,36)}<div><div class="cn">${esc(r.n)}</div><div class="cm">${esc(CFG.rooms[k].s||"online")}</div></div></div><div class="msgs"></div><div class="inp"><div class="ib"><span id="ti"></span><i class="cur"></i></div><div class="sdb"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 14V3M3 7l5-5 5 5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></div></div><div class="kb"></div>`;
+ hyd(b);const ms=b.querySelector(".msgs");r.m.forEach((m,i)=>ms.appendChild(bub(r,m,r.m[i-1])));ms.scrollTop=ms.scrollHeight;
+ b.querySelector(".back").onclick=msgList;b.querySelector(".sdb").onclick=()=>press("go");kb(b.querySelector(".kb"));inp()}
+function add(k,m){const r=R[k],pv=r.m[r.m.length-1];m.t=S.clk;r.m.push(m);r.vis=1;r.ts=++TS;
+ if(S.chat===k){const ms=$(".msgs");ms.appendChild(bub(r,m,pv));ms.scrollTop=ms.scrollHeight}else if(!S.chat&&!S.locked)msgList()}
+function tp(k,on){if(S.chat!==k)return;const ms=$(".msgs");if(!ms)return;ms.querySelectorAll(".tp").forEach(x=>x.remove());if(on){ms.appendChild(el("div","tp","<i></i><i></i><i></i>"));ms.scrollTop=ms.scrollHeight}}
+function kb(c){const rows=["qwertyuiop","asdfghjkl","zxcvbnm"];
+ c.innerHTML=rows.map((r,i)=>`<div class="kr"${i==1?' style="padding:0 16px"':""}>${[...r].map(ch=>`<div class="k" data-k="${ch}">${ch}</div>`).join("")}</div>`).join("")+'<div class="kr"><div class="k" data-k="del">⌫</div><div class="k sp" data-k="sp">spasi</div><div class="k go" data-k="go">kirim</div></div>';
+ c.querySelectorAll(".k").forEach(k=>k.addEventListener("pointerdown",e=>{e.preventDefault();press(k.dataset.k)}))}
+function lit(ch){const kk=ch===" "?"sp":String(ch).toLowerCase(),e=[...document.querySelectorAll(".k")].find(x=>x.dataset.k===kk);if(e){e.classList.add("on");setTimeout(()=>e.classList.remove("on"),110)}}
+function inp(){const t=$("#ti");if(t)t.textContent=S.buf.slice(-34)}
+function press(k){if(S.chat==null)return;lit(k);if(k==="del"){S.buf=S.buf.slice(0,-1)}else if(k==="go"){const x=S.buf.trim();if(!x)return;sfx("send");S.buf="";inp();add(S.chat,{w:"me",x});return}else S.buf+=k==="sp"?" ":k;sfx("type");inp()}
+async function typeMe(k,text,id){S.buf="";inp();for(const ch of [...text]){if(id!==RUN)return;S.buf+=ch;lit(ch);sfx("type");inp();await sleep(40+Math.random()*80)}
+ await sleep(300);lit("go");sfx("send");vib(15);S.buf="";inp();add(k,{w:"me",x:text})}
+/* ===== NOTIFIKASI ===== */
+let bt=0;
+function notify(k,who,x){const r=R[k],pre=r.g&&CFG.sp[who]?CFG.sp[who][0]+": ":"",n={room:k,t:r.n,x:pre+x};
+ if(S.locked){S.lockN.unshift(n);S.lockN=S.lockN.slice(0,4);renderLock()}
+ else{const b=$("#ban");b.innerHTML=avr(k,40)+`<div class="tt"><b>${esc(n.t)}</b><span>${esc(n.x)}</span></div>`;hyd(b);b.onclick=()=>{b.classList.remove("on");showChat(k)};b.classList.add("on");clearTimeout(bt);bt=setTimeout(()=>b.classList.remove("on"),3800)}}
+/* ===== MESIN CERITA ===== */
+const parse=e=>{const m=e.match(/^(?:(\d+)>)?(\w+)\|(\w+): ?([\s\S]*)$/);return{d:m[1]?+m[1]:900,r:m[2],w:m[3],x:m[4]}};
+async function waitOpen(k,id){let n=0;while(!(S.chat===k&&!S.locked)){if(n++%36===0){sfx("notif");vib([100,60,100]);notify(k,"me","Ketuk untuk membalas")}await sleep(350);if(id!==RUN)return false}return true}
+async function say(k,who,o,id){
+ if(who==="me"){if(!await waitOpen(k,id))return;if(o.k==="i"){await sleep(900);add(k,Object.assign({w:"me"},o))}else await typeMe(k,o.x,id);return}
+ const open=S.chat===k&&!S.locked;
+ if(open){tp(k,1);await sleep(Math.min(500+(o.x||"").length*28,2400));tp(k,0);if(id!==RUN)return}
+ add(k,Object.assign({w:who},o));
+ if(open)sfx("recv");else{R[k].un++;sfx("notif");vib([120,60,120]);notify(k,who,o.x||"Foto")}}
+async function step(e,id){
+ const dm=e.match(/^(\d+)>(@[\s\S]*)$/);if(dm){await sleep(+dm[1]);if(id!==RUN)return;e=dm[2]}
+ if(e[0]==="@"){const p=e.slice(1).split("|"),t=p[0];
+  if(t==="t"){setClk(p[1]);return}if(t==="fear"){setFear(+p[1]);return}
+  if(t==="sys"){await sleep(900);if(id!==RUN)return;add(p[1],{k:"s",x:p[2]});return}
+  if(t==="img")return say(p[1],p[2],{k:"i",key:p[3],l:p[4]},id);
+  if(t==="end"){await sleep(2500);if(id!==RUN)return;$("#et").innerHTML=esc(p[1])+'<br><small style="opacity:.6">Livly salah kirim ke grup yang ada monsternya</small>';$("#end").classList.add("on")}return}
+ const m=parse(e);await sleep(m.d);if(id!==RUN)return;let x=m.x,q=null;const qm=x.match(/^\(q:([^)]*)\)/);if(qm){q=qm[1];x=x.slice(qm[0].length)}
+ await say(m.r,m.w,q?{x,q}:{x},id)}
+async function play(){const id=RUN,L=CFG.story;for(let i=0;i<L.length;i++){if(id!==RUN)return;await step(L[i],id)}}
+function reset(){for(const k in CFG.rooms)R[k]={n:CFG.rooms[k].n,g:CFG.rooms[k].g,vis:0,un:0,m:[],ts:0};
+ S.lockN=[];S.pend=null;S.buf="";S.locked=1;S.chat=null;setClk("11:41");setFear(0);$("#app").innerHTML="";["#end","#pass"].forEach(s=>$(s).classList.remove("on"));$("#ban").classList.remove("on");$("#lock").classList.remove("up");renderLock()}
+function start(){RUN++;reset();play()}
+$("#rs").onclick=start;start();
+</script></body></html>
