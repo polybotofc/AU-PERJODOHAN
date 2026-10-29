@@ -41,7 +41,7 @@ footer{margin-top:40px;color:var(--mu);font-size:13.5px}
 /* Semua AU = file .html di folder au/ (au/perjodohan.html, au/xxx.html, ...).
    Daftar diambil otomatis dari listing folder au/ (butuh autoindex menyala di server).
    Kalau listing tidak tersedia (mis. dibuka lewat file://), dipakai daftar cadangan ini: */
-const DIR="au/", FALLBACK=["perjodohan.html"];
+const DIR="au/", FALLBACK=["perjodohan.html","teman-monster.html"];
 const g=document.getElementById("g"),q=document.getElementById("q"),n=document.getElementById("n");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let AUS=[];
