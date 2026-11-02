@@ -14,6 +14,16 @@ h1{font-size:clamp(32px,6vw,54px);line-height:1.05;font-weight:800;letter-spacin
 .search{flex:1;min-width:200px;border:0;border-radius:14px;padding:13px 16px;background:var(--in);color:var(--tx);font:inherit;font-size:16px;outline:none}
 .search::placeholder{color:var(--mu)}.search:focus-visible{box-shadow:0 0 0 2px var(--tx)}
 .count{color:var(--mu);font-size:15px;white-space:nowrap;padding:0 6px}
+
+/* ===== Iklan DoraFlix ===== */
+.ad{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 24px;padding:20px 22px;border-radius:22px;background:linear-gradient(120deg,#0089d6,#00a0e9 55%,#4cc3ff);color:#fff;text-decoration:none;transition:transform .25s cubic-bezier(.2,1.2,.4,1),box-shadow .2s}
+.ad:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,160,233,.35)}.ad:active{transform:scale(.98)}.ad:focus-visible{outline:2px solid var(--tx);outline-offset:3px}
+.ad .tx{flex:1;min-width:220px}
+.ad .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.22);padding:3px 9px;border-radius:99px;margin-bottom:8px}
+.ad b{display:block;font-size:clamp(18px,3.4vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.ad span.d{display:block;margin-top:5px;font-size:14.5px;opacity:.93;line-height:1.45}
+.ad .go{background:#fff;color:#0089d6;font-weight:800;font-size:15px;padding:12px 22px;border-radius:99px;white-space:nowrap}
+
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--ln);border-radius:22px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-align:left;color:inherit;font:inherit;padding:0;transition:transform .25s cubic-bezier(.2,1.2,.4,1),border-color .2s}
 .card:hover{transform:translateY(-3px);border-color:var(--mu)}.card:active{transform:scale(.98)}.card:focus-visible{outline:2px solid var(--tx);outline-offset:3px}
@@ -33,6 +43,16 @@ footer{margin-top:40px;color:var(--mu);font-size:13.5px}
  <h1>J1NJUU<br>Alternatif Universe</h1>
  <p class="sub">Semua AU buatan J1NJUU. Pilih satu untuk masuk ke ceritanya.</p>
  <div class="bar"><input class="search" id="q" type="search" placeholder="Cari AU" aria-label="Cari AU"><div class="count" id="n">Memuat...</div></div>
+
+ <a class="ad" href="https://doraflix.j1njuuzxc.web.id" target="_blank" rel="noopener" aria-label="Iklan: Nonton Doraemon Bahasa Indonesia hanya di DoraFlix">
+  <div class="tx">
+   <div class="tag">Iklan</div>
+   <b>Nonton Doraemon Bahasa Indonesia, hanya di DoraFlix</b>
+   <span class="d">Ratusan episode dan movie Doraemon sub Indonesia. Gratis, tanpa ribet, langsung putar.</span>
+  </div>
+  <div class="go">Tonton sekarang</div>
+ </a>
+
  <div class="grid" id="g"></div>
  <footer>Dibuat oleh J1NJUU</footer>
 </div>
